@@ -46,8 +46,12 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        const newCards = selected.filter(
+          (selectedCard) =>
+            !userSelectedCards.some((card) => card.id === selectedCard.id)
+        );
         setUserSelectedCards((previousSelected) => [
-          ...selected,
+          ...newCards,
           ...previousSelected,
         ]);
       })
@@ -74,8 +78,8 @@ function App() {
       </div>
       <h2>My Selected Cards</h2>
       <div className="user-selected-cards-container">
-        {userSelectedCards.map((card) => (
-          <div key={card.id} className="card">
+        {userSelectedCards.map((card, index) => (
+          <div key={`${card.id}-${index}`} className="card">
             <h3>{card.cardname}</h3>
             <img src={card.cardurl} alt={`Pokemon card ${card.cardname}`} />
           </div>
