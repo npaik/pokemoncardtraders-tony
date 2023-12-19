@@ -40,3 +40,62 @@
 .read-the-docs {
   color: #888;
 }
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* 10 columns */
+  grid-gap: 1em; /* Space between cards */
+  padding: 1em;
+}
+
+.card {
+  border: 1px solid #ddd; /* Optional: border for each card */
+  padding: 1em;
+  text-align: center;
+  background-color: #f9f9f9; /* Optional: background color */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: card shadow */
+}
+
+.card img {
+  max-width: 100%;
+  height: auto; /* Keep aspect ratio */
+  margin-bottom: 0.5em;
+}
+
+.card-back-container {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.card-back-container img {
+  max-width: 200px;
+  cursor: pointer;
+}
+
+.selected-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.selected-card img {
+  max-width: 200px;
+}
+
+.user-selected-cards-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); 
+  gap: 10px; 
+  margin: 20px 0; 
+}
+
+.user-selected-cards-container .card {
+  max-width: 100%; 
+  margin: 0;
+}
+
+.user-selected-cards-container img {
+  width: 100%; 
+  height: auto; 
+}
