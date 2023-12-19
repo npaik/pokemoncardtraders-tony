@@ -6,9 +6,6 @@ const users = sqliteTable("users", {
     .notNull()
     .primaryKey({ autoIncrement: true }),
   username: text("username").notNull().unique(),
-  cardId: integer("card_id").references(() => cards.id, {
-    onDelete: "cascade",
-  }),
 });
 
 module.exports = { users };
