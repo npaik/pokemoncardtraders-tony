@@ -1,5 +1,33 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import PropTypes from "prop-types";
+
+function SelectedCards({ userSelectedCards }) {
+  return (
+    <>
+      <h2>My Selected Cards</h2>
+      <div className="user-selected-cards-container">
+        {userSelectedCards.map((card, index) => (
+          <div key={`${card.id}-${index}`} className="card">
+            <h3>{card.cardname}</h3>
+            <img src={card.cardurl} alt={`Pokemon card ${card.cardname}`} />
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+SelectedCards.propTypes = {
+  userSelectedCards: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      cardname: PropTypes.string.isRequired,
+      cardurl: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -80,44 +108,59 @@ function App() {
   };
 
   return (
-    <>
-      <h1>Pokemon Cards</h1>
-      <div className="card-back-container">
-        <img
-          src="/pokemoncardback.jpg"
-          alt="Backside of Pokemon card"
-          onClick={handleCardBackClick}
-        />
+    <Router>
+      <div>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/selected-cards">My Selected Cards</Link>
       </div>
-      <div className="selected-cards-container">
-        {selectedCards.map((card, index) => (
-          <div
-            key={`${card.id}-${index}`}
-            className="selected-card"
-            onMouseMove={(e) => handleMouseMove(e, index)}
-            onMouseLeave={() => {
-              const card = document.querySelectorAll(".selected-card")[index];
-              card.style.transform = "none"; // Reset the transform on mouse leave
-            }}
-            onClick={() => handleCardFlip(index)}
-          >
-            <div className={`card-inner ${card.flipped ? "flipped" : ""}`}>
-              <div className="card-front">
-                <img src={card.cardurl} alt={`Pokemon card ${card.cardname}`} />
-                <h3>{card.cardname}</h3>
-              </div>
-              <div className="card-back">
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <h1>Pokemon Cards</h1>
+              <div className="card-back-container">
                 <img
                   src="/pokemoncardback.jpg"
                   alt="Backside of Pokemon card"
+                  onClick={handleCardBackClick}
                 />
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
+              <div className="selected-cards-container">
+                {selectedCards.map((card, index) => (
+                  <div
+                    key={`${card.id}-${index}`}
+                    className="selected-card"
+                    onMouseMove={(e) => handleMouseMove(e, index)}
+                    onMouseLeave={() => {
+                      const card =
+                        document.querySelectorAll(".selected-card")[index];
+                      card.style.transform = "none"; // Reset the transform on mouse leave
+                    }}
+                    onClick={() => handleCardFlip(index)}
+                  >
+                    <div
+                      className={`card-inner ${card.flipped ? "flipped" : ""}`}
+                    >
+                      <div className="card-front">
+                        <img
+                          src={card.cardurl}
+                          alt={`Pokemon card ${card.cardname}`}
+                        />
+                        <h3>{card.cardname}</h3>
+                      </div>
+                      <div className="card-back">
+                        <img
+                          src="/pokemoncardback.jpg"
+                          alt="Backside of Pokemon card"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-      {/* have this section in a separate page
+              {/* have this section in a separate page
 
       <h2>My Selected Cards</h2>
       <div className="user-selected-cards-container">
@@ -130,7 +173,15 @@ function App() {
       </div> 
       
       */}
-    </>
+            </>
+          }
+        />
+        <Route
+          path="/selected-cards"
+          element={<SelectedCards userSelectedCards={userSelectedCards} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
