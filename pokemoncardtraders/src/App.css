@@ -85,17 +85,66 @@
 
 .user-selected-cards-container {
   display: grid;
-  grid-template-columns: repeat(10, 1fr); 
-  gap: 10px; 
-  margin: 20px 0; 
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+  margin: 20px 0;
 }
 
 .user-selected-cards-container .card {
-  max-width: 100%; 
+  max-width: 100%;
   margin: 0;
 }
 
 .user-selected-cards-container img {
-  width: 100%; 
-  height: auto; 
+  width: 100%;
+  height: auto;
+}
+
+.card .front {
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+  position: absolute;
+}
+
+.flipped .front {
+  transform: rotateY(0deg);
+  transition-delay: 0.2s;
+}
+
+.card .back {
+  transition: all ease-in 0.2s;
+  transition-delay: 0.2s;
+}
+.flipped .back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+}
+
+.selected-card {
+  perspective: 1000px; /* Depth effect for the flip */
+}
+
+.card-inner {
+  position: relative;
+  width: 200px;
+  height: 300px; /* Adjust based on your card size */
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hide the back side of the card when flipped */
+}
+
+.card-front {
+  transform: rotateY(180deg);
 }
