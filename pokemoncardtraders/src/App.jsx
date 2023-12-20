@@ -159,20 +159,6 @@ function App() {
                   </div>
                 ))}
               </div>
-
-              {/* have this section in a separate page
-
-      <h2>My Selected Cards</h2>
-      <div className="user-selected-cards-container">
-        {userSelectedCards.map((card, index) => (
-          <div key={`${card.id}-${index}`} className="card">
-            <h3>{card.cardname}</h3>
-            <img src={card.cardurl} alt={`Pokemon card ${card.cardname}`} />
-          </div>
-        ))}
-      </div> 
-      
-      */}
             </>
           }
         />
