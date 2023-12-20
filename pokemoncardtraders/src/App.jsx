@@ -69,6 +69,16 @@ function App() {
     );
   };
 
+  const handleMouseMove = (e, cardIndex) => {
+    const card = document.querySelectorAll(".selected-card")[cardIndex];
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateY = (-1 / 5) * x + 20;
+    const rotateX = (4 / 30) * y - 20;
+    card.style.transform = `perspective(350px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
+
   return (
     <>
       <h1>Pokemon Cards</h1>
@@ -84,6 +94,11 @@ function App() {
           <div
             key={`${card.id}-${index}`}
             className="selected-card"
+            onMouseMove={(e) => handleMouseMove(e, index)}
+            onMouseLeave={() => {
+              const card = document.querySelectorAll(".selected-card")[index];
+              card.style.transform = "none"; // Reset the transform on mouse leave
+            }}
             onClick={() => handleCardFlip(index)}
           >
             <div className={`card-inner ${card.flipped ? "flipped" : ""}`}>
