@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 function SelectedCards({ userSelectedCards }) {
   return (
     <>
-      <h2>My Selected Cards</h2>
+      <h2>My Cards</h2>
       <div className="user-selected-cards-container">
         {userSelectedCards.map((card, index) => (
           <div key={`${card.id}-${index}`} className="card">
@@ -110,8 +110,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/selected-cards">My Selected Cards</Link>
+        <Link to="/">Home</Link> | <Link to="/selected-cards">My Cards</Link>
       </div>
       <Routes>
         <Route
